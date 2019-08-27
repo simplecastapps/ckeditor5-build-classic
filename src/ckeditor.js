@@ -28,6 +28,7 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import SimpleButton from './plugins/SimpleButton/simple-button-plugin';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -53,6 +54,7 @@ ClassicEditor.builtinPlugins = [
 	MediaEmbed,
 	Paragraph,
 	PasteFromOffice,
+	SimpleButton,
 	Table,
 	TableToolbar
 ];
