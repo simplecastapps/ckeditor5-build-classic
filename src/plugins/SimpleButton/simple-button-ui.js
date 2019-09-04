@@ -34,14 +34,14 @@ export default class SimpleButtonUi extends Plugin {
 		const editor = this.editor;
 
 		editor.ui.componentFactory.add( buttonDefinition.name, locale => {
-			const button = this.createButton( buttonDefinition.label, buttonDefinition.icon, locale );
+			const button = this.createButton( buttonDefinition, locale );
 			button.isEnabled = true;
 			button._syncDisabledState = typeof buttonDefinition.syncDisabledState === 'boolean' ? buttonDefinition.syncDisabledState : true;
 
 			// Change enabled state and execute the specific callback on click.
 			this.listenTo( button, 'execute', () => {
 				this.enableButton( button, false );
-				Promise.resolve( buttonDefinition.onClick( button ) )
+				Promise.resolve( buttonDefinition.onClick( button, editor ) )
 					.then( () => this.enableButton( button, true ) )
 					.catch( () => this.enableButton( button, true ) );
 			} );
@@ -70,18 +70,20 @@ export default class SimpleButtonUi extends Plugin {
 	/**
 	 * Internal creation method of ButtonView objects
 	 *
-	 * @param label the button label ( string )
-	 * @param icon the button icon ( string )
+	 * @param buttonDefinition an object with button options ( object )
 	 * @param icon the button locale ( string )
 	 * @private
 	 */
-	createButton( label, icon, locale ) {
+	createButton( buttonDefinition, locale ) {
 		const button = new ButtonView( locale );
 
 		button.set( {
-			label,
-			icon,
-			tooltip: true
+			label: buttonDefinition.label,
+			icon: buttonDefinition.icon,
+			tooltip: buttonDefinition.tooltip,
+			isToggleable: buttonDefinition.isToggleable || false,
+			isOn: buttonDefinition.isOn || false,
+			withText: buttonDefinition.withText || false
 		} );
 
 		return button;
