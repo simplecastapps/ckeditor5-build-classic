@@ -83,7 +83,9 @@ export default class SimpleButtonUi extends Plugin {
 			tooltip: buttonDefinition.tooltip,
 			isToggleable: buttonDefinition.isToggleable || false,
 			isOn: buttonDefinition.isOn || false,
-			withText: buttonDefinition.withText || false
+			withText: buttonDefinition.withText || false,
+			class: buttonDefinition.class,
+			_tooltipString: buttonDefinition._tooltipString || buttonDefinition.label
 		} );
 
 		return button;
